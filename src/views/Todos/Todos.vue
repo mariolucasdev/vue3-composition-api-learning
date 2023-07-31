@@ -1,6 +1,10 @@
 <template>
     <h1> Lista de Tarefas </h1>
 
+    <div v-show="loading">
+        <p>Carregando...</p>
+    </div>
+
     <ul>
         <li v-for="todo in todos" :key="todo.id">
             {{ todo.name }} - {{ todo.description }}
@@ -21,13 +25,19 @@ export default {
     setup() {
         const todos = ref([])
 
+        const loading = ref(false)
+
         onMounted(() => {
+            loading.value = true
+
             TodosServices.getAll()
                 .then(response => todos.value = response.data)
                 .catch(error => console.log(error))
+                .finally(() => loading.value = false)
         })
 
         return {
+            loading,
             todos
         }
     }
