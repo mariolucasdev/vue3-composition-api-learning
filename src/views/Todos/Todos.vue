@@ -9,11 +9,9 @@
 
     <ul>
         <li v-for="todo in todos" :key="todo.id">
-            <todo :todo="todo" />
+            <todo :todo="todo" @todoDeleted="removeTodoList"/>
         </li>
     </ul>
-
-    <input type="text" v-model="name">
 </template>
 
 <script>
@@ -38,13 +36,18 @@ export default {
                 .finally(() => loading.value = false)
         })
 
+        const removeTodoList = (id) => {
+            todos.value = todos.value.filter(todo => todo.id !== id)
+        }
+
         return {
             loading,
-            todos
+            todos,
+            removeTodoList
         }
     },
     components: {
-        Todo
+        Todo,
     }
 }
 </script>

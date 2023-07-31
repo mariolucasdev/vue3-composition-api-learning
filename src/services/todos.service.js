@@ -17,4 +17,8 @@ export default class TodoService {
     static async editTodo(id, data) {
         return axios.put(`/skills/${id}`, data)
     }
+
+    static async delete(id) {
+        return axios.delete(`/skills/${id}`)
+    }
 }
