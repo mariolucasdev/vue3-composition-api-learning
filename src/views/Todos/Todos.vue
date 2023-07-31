@@ -1,6 +1,8 @@
 <template>
     <h1> Lista de Tarefas </h1>
 
+    <router-link :to="{ name: 'todos.create' }">Adicionar</router-link>
+
     <div v-show="loading">
         <p>Carregando...</p>
     </div>
@@ -24,7 +26,6 @@ export default {
 
     setup() {
         const todos = ref([])
-
         const loading = ref(false)
 
         onMounted(() => {
